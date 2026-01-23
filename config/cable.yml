@@ -1,0 +1,33 @@
+# ActionCable 백엔드 어댑터를 설정하는 파일
+# ActionCable은 Rails에서 WebSocket을 사용하여 실시간 채팅 기능을 구현할 때 사용
+# 현재는 development 환경에서 async adapter를 사용하여
+# 실시간 채팅 기능을 구현할 때 사용
+# 채팅 기능이나 실시간 알림처럼 서버와 브라우저가
+# 실시간으로 데이터를 주고받을 때 사용되는 "통신 중계소" 역할을
+# 누가 할지 정합니다.
+
+# development:
+# 개발 환경: 별도의 프로그램 설치 없이
+# Rails 프로세스 내부의 비동기 스레드(async)를 사용
+# 장점: 설정이 필요 없고 간편
+# 단점: 서버 프로세스가 하나일 때만 작동합니다.
+# (개발할 땐 보통 하나만 띄우니까 OK)
+development:
+  adapter: async
+
+test:
+  adapter: test
+
+# production:
+# 실서버 환경: Redis라는 고성능 메모리 DB를 중계소(Pub/Sub)로 사용합니다.
+# 이유: 실서버는 보통 여러 대의 Rails 서버가 돌아가는데,
+# A서버에 접속한 유저와 B서버에 접속한 유저가 대화하려면
+# 중간에서 메시지를 전달해줄 공동 우편함(Redis) 이 필요하기 때문입니다.
+production:
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  channel_prefix: todo_on_rails_production
+
+# Hotwire(Turbo Streams)가 내부적으로 이 Action Cable을 사용하므로,
+# 나중에 투두 리스트의 실시간 업데이트(누가 투두를 추가하면
+# 내 화면에도 바로 뿅 나타나는 기능) 를 구현할 때 이 설정이 중요해질 수 있습니다
