@@ -1,5 +1,6 @@
 # 로그인 세션 관리용 컨트롤러
 class SessionsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [ :new, :create ]
   # 로그인 페이지 렌더링
   # views/sessions/new.html.erb 렌더링 (로그인 폼 만들어야 함)
   def new

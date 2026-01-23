@@ -24,6 +24,35 @@
   </head>
 
   <body>
+    <header class="app-header">
+      <nav class="main-nav">
+        <div class="logo">
+          <%= link_to "TodoOnRails", root_path %>
+        </div>
+        <div class="nav-links">
+          <% if logged_in? %>
+            <%= link_to "My Todos", todos_path, class: "nav-item" %>
+            <%= link_to "About", about_path, class: "nav-item" %>
+            <div class="user-menu">
+              <span class="username"><%= current_user.login_id %></span>
+              <%= button_to "Logout", logout_path, method: :delete, class: "button small outline danger" %>
+            </div>
+          <% else %>
+            <%= link_to "About", about_path, class: "nav-item" %>
+            <%= link_to "Login", login_path, class: "nav-item" %>
+            <%= link_to "Sign Up", signup_path, class: "button small primary" %>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <% if flash.any? %>
+        <div class="flash-messages">
+          <% flash.each do |key, value| %>
+             <div class="flash <%= key %>"><%= value %></div>
+          <% end %>
+        </div>
+      <% end %>
     <%= yield %>
   </body>
 </html>

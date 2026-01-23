@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "new_todo_frame" do %>
+  <div class="modal-form-container">
+    <h2>New Todo</h2>
+    <%= render "form", todo: @todo %>
+  </div>
+<% end %>

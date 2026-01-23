@@ -1,0 +1,32 @@
+<%= form_with(model: todo, class: "todo-form") do |form| %>
+  <% if todo.errors.any? %>
+    <div class="error-messages">
+      <h2><%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:</h2>
+      <ul>
+        <% todo.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, required: true, class: "input-field" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "input-area" %>
+  </div>
+
+  <div class="field checkbox">
+    <%= form.check_box :completed %>
+    <%= form.label :completed %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "button primary" %>
+    <%= link_to "Cancel", todos_path, class: "button secondary" %>
+  </div>
+<% end %>

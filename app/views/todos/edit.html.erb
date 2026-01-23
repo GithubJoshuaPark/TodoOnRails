@@ -1,0 +1,5 @@
+<%= turbo_frame_tag @todo do %>
+  <div class="editing-todo-container">
+    <%= render "form", todo: @todo %>
+  </div>
+<% end %>

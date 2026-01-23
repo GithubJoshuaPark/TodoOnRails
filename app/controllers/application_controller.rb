@@ -3,6 +3,7 @@
 # 로그인 상태 관리용 메소드 정의
 
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user!
   helper_method :current_user, :logged_in?
 
   def current_user

@@ -1,0 +1,13 @@
+<%= turbo_frame_tag todo do %>
+  <div class="todo-item" id="<%= dom_id todo %>">
+    <div class="todo-content">
+      <h3 class="<%= 'completed' if todo.completed? %>"><%= todo.title %></h3>
+      <p><%= todo.description %></p>
+      <small><%= todo.created_at.to_fs(:short) %></small>
+    </div>
+    <div class="todo-actions">
+      <%= link_to "Edit", edit_todo_path(todo), class: "button small" %>
+      <%= button_to "Delete", todo_path(todo), method: :delete, class: "button small danger", form: { data: { turbo_confirm: "Are you sure?" } } %>
+    </div>
+  </div>
+<% end %>

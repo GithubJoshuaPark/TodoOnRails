@@ -11,4 +11,14 @@ class Todo < ApplicationRecord
   # : user_id 컬럼을 통해 User 모델과 연결
   # : user_id가 반드시 존재해야 함(null: false)
   belongs_to :user
+
+  validates :title, presence: true
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "title", "description", "completed", "created_at", "updated_at" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "user" ]
+  end
 end

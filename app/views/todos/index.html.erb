@@ -1,0 +1,24 @@
+<div class="todos-container">
+  <h1>My Todos</h1>
+
+  <div class="search-bar">
+    <%= search_form_for @q do |f| %>
+      <div class="search-input-group">
+        <%= f.search_field :title_or_description_cont, placeholder: "Search todos...", class: "search-input" %>
+        <%= f.submit "Search", class: "button search-button" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag "new_todo_frame" do %>
+    <%= link_to "New Todo", new_todo_path, class: "button primary" %>
+  <% end %>
+
+  <div id="todos_list" class="todos-list">
+    <%= render @todos %>
+  </div>
+
+  <div class="pagination-container">
+    <%= paginate @todos %>
+  </div>
+</div>
