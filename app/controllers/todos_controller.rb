@@ -13,10 +13,7 @@ class TodosController < ApplicationController
   def create
     @todo = current_user.todos.new(todo_params)
     if @todo.save
-      respond_to do |format|
-        format.html { redirect_to todos_path, notice: "Todo created successfully!" }
-        format.turbo_stream
-      end
+      redirect_to todos_path, notice: "Todo created successfully!"
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,10 +24,7 @@ class TodosController < ApplicationController
 
   def update
     if @todo.update(todo_params)
-      respond_to do |format|
-        format.html { redirect_to todos_path, notice: "Todo updated successfully!" }
-        format.turbo_stream
-      end
+      redirect_to todos_path, notice: "Todo updated successfully!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -38,10 +32,7 @@ class TodosController < ApplicationController
 
   def destroy
     @todo.destroy
-    respond_to do |format|
-      format.html { redirect_to todos_path, notice: "Todo deleted successfully!" }
-      format.turbo_stream
-    end
+    redirect_to todos_path, notice: "Todo deleted successfully!", status: :see_other
   end
 
   private
