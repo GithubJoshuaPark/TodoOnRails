@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get "intro", to: "pages#intro"
   get "about", to: "pages#about"
+  get "privacy", to: "pages#privacy"
+  get "terms", to: "pages#terms"
 
   resources :todos
   resources :users, only: [ :edit, :update ]

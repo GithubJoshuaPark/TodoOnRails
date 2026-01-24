@@ -64,6 +64,221 @@ a:hover { opacity: 0.8; }
   z-index: 100;
 }
 
+/* Footer (PC Only) */
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+
+  /* Glassmorphism */
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  padding: 1rem 0;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-copyright {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-links p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.app-footer p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.footer-link {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.footer-link:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.footer-link:active {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0.98);
+}
+
+.footer-email {
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.footer-email:hover {
+  color: white;
+}
+
+/* Hide footer on mobile */
+@media (max-width: 768px) {
+  .app-footer {
+    display: none;
+  }
+}
+
+/* Legal Pages Styles */
+.legal-page-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  position: relative;
+}
+
+.back-to-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 2rem;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.back-to-home:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  transform: translateX(-3px);
+}
+
+.legal-container {
+  padding: 3rem;
+}
+
+.legal-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: white;
+  font-weight: 700;
+}
+
+.legal-container .last-updated {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.legal-container section {
+  margin-bottom: 2.5rem;
+}
+
+.legal-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: white;
+  font-weight: 600;
+}
+
+.legal-container p {
+  color: #e2e8f0;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.legal-container ul {
+  color: #e2e8f0;
+  line-height: 1.8;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.legal-container li {
+  margin-bottom: 0.5rem;
+}
+
+.legal-container li strong {
+  color: white;
+  font-weight: 600;
+}
+
+.legal-container .contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  margin-top: 1rem;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-size: 1.1rem;
+}
+
+.legal-container .contact-email i {
+  color: #68d391;
+}
+
+.legal-container .contact-email a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.legal-container .contact-email a:hover {
+  color: #68d391;
+}
+
+/* Mobile adjustments for legal pages */
+@media (max-width: 768px) {
+  .legal-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .legal-container h1 {
+    font-size: 2rem;
+  }
+
+  .legal-container h2 {
+    font-size: 1.3rem;
+  }
+}
+
+
+
 .main-nav {
   max-width: 1200px;
   margin: 0 auto;
@@ -138,7 +353,16 @@ a:hover { opacity: 0.8; }
   max-width: 900px;
   margin: 2rem auto;
   padding: 0 1.5rem;
+  padding-bottom: 5rem; /* Space for footer on desktop */
 }
+
+/* Remove extra padding on mobile (no footer) */
+@media (max-width: 768px) {
+  .container {
+    padding-bottom: 1.5rem;
+  }
+}
+
 
 /* Auth Containers (Login/Signup) & Forms */
 .auth-container, .modal-form-container, .editing-todo-container, .about-container {

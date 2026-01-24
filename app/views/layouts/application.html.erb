@@ -72,6 +72,19 @@
       <%= yield %>
     </main>
 
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-copyright">
+          © 2026 TodoOnRails
+        </div>
+        <div class="footer-links">
+          <p><%= link_to "Privacy Policy", privacy_path, class: "footer-link" %></p>
+          <p><%= link_to "Terms of Service", terms_path, class: "footer-link" %></p>
+          <p><a href="mailto:soromiso@gmail.com" class="footer-email" target="_blank">Contact</a></p>
+        </div>
+      </div>
+    </footer>
+
     <div class="toast-container">
       <% flash.each do |key, value| %>
         <div class="toast <%= key %>" data-controller="toast">
