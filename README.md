@@ -164,3 +164,32 @@ Rails는 **"웹 개발의 생산성"**을 최우선으로 하기 때문입니다
 Spring Boot + JWT가 "토큰을 검증"해서 Stateless를 만드는 것처럼, Rails + CookieStore는 **"암호화된 쿠키를 공유"**해서 Stateless를 만듭니다.
 
 따라서 **1인 창업**이나 **초기~중기 스타트업** 규모에서는 복잡하게 Redis 세션 서버를 구축할 필요 없이, **기본 `CookieStore`만으로도 충분히 서버 확장이 가능합니다.** 🚀
+
+#### 📝 routes.rb 파일에서
+
+```ruby
+    resources :todos
+```
+
+📋 생성되는 7가지 경로와 역할
+| 역할 | HTTP 동사 | URL 경로 (URI Pattern) | 컨트롤러 액션 | 설명 | 경로 별칭 (Prefix) |
+| :--- | :---: | :--- | :---: | :--- | :--- |
+| **목록 조회** | `GET` | `/todos` | `index` | 모든 할 일 목록을 보여줍니다. | `todos_path` |
+| **추가 화면** | `GET` | `/todos/new` | `new` | 새로운 할 일을 입력하는 **폼(화면)**을 보여줍니다. | `new_todo_path` |
+| **생성 처리** | `POST` | `/todos` | `create` | 폼에서 입력한 데이터를 받아 실제로 **DB에 저장**합니다. | `todos_path` |
+| **상세 조회** | `GET` | `/todos/:id` | `show` | 특정 할 일(`:id`) 하나만 자세히 보여줍니다. | `todo_path(@todo)` |
+| **수정 화면** | `GET` | `/todos/:id/edit` | `edit` | 기존 할 일을 수정하는 **폼(화면)**을 보여줍니다. | `edit_todo_path(@todo)` |
+| **수정 처리** | `PATCH/PUT` | `/todos/:id` | `update` | 폼에서 수정한 데이터를 받아 실제로 **DB를 갱신**합니다. | `todo_path(@todo)` |
+| **삭제 처리** | `DELETE` | `/todos/:id` | `destroy` | 특정 할 일(`:id`)을 **DB에서 삭제**합니다. | `todo_path(@todo)` |
+
+## License
+
+MIT License: https://choosealicense.com/licenses/mit/
+수정, 배포, 상업적 이용이 자유로운 라이선스입니다.
+단, 저작권 고지와 라이선스 전문을 표기해야 하며,
+소프트웨어에 대한 보증 책임은 없습니다.
+
+## Author
+
+Joshua Park
+soromiso@gmail.com

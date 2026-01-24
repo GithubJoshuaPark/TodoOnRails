@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "about", to: "pages#about"
 
   resources :todos
+  resources :users, only: [ :edit, :update ]
 
   get "signup", to: "users#new"
   post "signup", to: "users#create"

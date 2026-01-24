@@ -1,0 +1,40 @@
+<dialog id="profile-modal" class="confirm-modal" open>
+  <div class="confirm-modal-wrapper">
+    <div class="confirm-modal-content">
+      <h3>Edit Profile</h3>
+
+      <%= form_with(model: @user, url: user_path(@user), method: :patch, local: true, multipart: true) do |f| %>
+
+        <div class="field" style="text-align: center; margin-bottom: 2rem;">
+          <%= f.label :avatar, style: "cursor: pointer; display: inline-block; transition: transform 0.2s;" do %>
+            <% if @user.avatar.attached? %>
+              <%= image_tag @user.avatar, style: "width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.2);" %>
+            <% else %>
+              <div style="width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.1); margin: 0 auto; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.2);">
+                <span style="font-size: 2rem; color: #a0aec0;">?</span>
+              </div>
+            <% end %>
+            <div style="font-size: 0.8rem; color: #a0aec0; margin-top: 0.5rem;">Click to change photo</div>
+          <% end %>
+
+          <%= f.file_field :avatar, style: "display: none;", onchange: "this.form.requestSubmit()" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :user_name, "Display Name" %>
+          <%= f.text_field :user_name, class: "input-field", placeholder: "Enter your name" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :bio, "Bio" %>
+          <%= f.text_area :bio, class: "input-area", placeholder: "Tell us about yourself", rows: 3 %>
+        </div>
+
+        <div class="confirm-modal-actions" style="margin-top: 2rem; display: flex; gap: 1rem;">
+          <%= link_to "Cancel", root_path, class: "button secondary", style: "flex: 1; display: inline-flex; align-items: center; justify-content: center; height: 3rem;" %>
+          <%= f.button "Save", class: "button primary", type: "submit", style: "flex: 1; display: inline-flex; align-items: center; justify-content: center; height: 3rem;" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</dialog>

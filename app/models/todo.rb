@@ -12,12 +12,15 @@ class Todo < ApplicationRecord
   # : user_id가 반드시 존재해야 함(null: false)
   belongs_to :user
 
+  # 유효성 검사
   validates :title, presence: true
 
+  # Ransack용 설정
   def self.ransackable_attributes(auth_object = nil)
     [ "title", "description", "completed", "created_at", "updated_at" ]
   end
 
+  # Ransack용 설정
   def self.ransackable_associations(auth_object = nil)
     [ "user" ]
   end

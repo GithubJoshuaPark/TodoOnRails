@@ -17,6 +17,13 @@ class User < ApplicationRecord
   # : login_id가 반드시 존재해야 하고(presence: true),
   #   중복되지 않아야 함(uniqueness: true)
   validates :login_id, presence: true, uniqueness: true
+  validates :user_name, presence: true # 이름 필수
+
+  # Rails 7.1+ normalization: 양쪽 공백 자동 제거
+  normalizes :user_name, with: ->(name) { name.strip }
+
+  # 프로필 이미지 첨부 (Active Storage)
+  has_one_attached :avatar
 
   # 연관관계 설정
   # has_many :todos, dependent: :destroy

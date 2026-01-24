@@ -10,26 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-## 버전 정보: 가장 마지막에 실행된 마이그레이션 파일의 타임스탬프(2026_01_22_065726)
-ActiveRecord::Schema[8.1].define(version: 2026_01_22_065726) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_24_072923) do
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.string "content_type"
+    t.datetime "created_at", null: false
+    t.string "filename", null: false
+    t.string "key", null: false
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
   create_table "todos", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.boolean "completed", default: false
     t.datetime "created_at", null: false
     t.text "description"
     t.string "title"
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false # t.reference :user에 의해 생성된 컬럼
-    t.index ["user_id"], name: "index_todos_on_user_id" # user_id 컬럼에 대한 생성된 인덱스
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.string "avatar_image_url"
+    t.text "bio"
     t.datetime "created_at", null: false
     t.string "login_id"
     t.string "password_digest"
     t.datetime "updated_at", null: false
-    t.index ["login_id"], name: "index_users_on_login_id", unique: true # migrate에서 정의한 unique 인덱스
+    t.string "user_name"
+    t.index ["login_id"], name: "index_users_on_login_id", unique: true
   end
 
-  # 외래키 제약 조건 명시 (todos 테이블의 user_id 컬럼이 users 테이블의 id 컬럼을 참조)
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "todos", "users"
 end

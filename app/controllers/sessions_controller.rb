@@ -1,5 +1,6 @@
 # 로그인 세션 관리용 컨트롤러
 class SessionsController < ApplicationController
+  # 로그인 페이지는 로그인하지 않은 사용자도 접근 가능하도록 설정
   skip_before_action :authenticate_user!, only: [ :new, :create ]
   # 로그인 페이지 렌더링
   # views/sessions/new.html.erb 렌더링 (로그인 폼 만들어야 함)
@@ -34,9 +35,11 @@ class SessionsController < ApplicationController
   # 세션에서 사용자 ID 제거
   # 로그아웃 성공 시 login_path(로그인 페이지)로 리다이렉트
   def destroy
-    # [핵심] 세션에서 유저 ID를 지워버립니다.
-    session[:user_id] = nil
-    # 로그인 페이지로 리다이렉트
+    # [핵심] 세션 초기화 및 쿠키 삭제
+    reset_session
+    cookies.delete(:_todo_on_rails_session)
+
+    # 로그인 페이지로 리다이렉트 (Flash 메시지 제거하여 세션 재생성 방지)
     redirect_to login_path, notice: "Logged out successfully!"
   end
 end

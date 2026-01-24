@@ -1,3 +1,6 @@
+# Rails의 Active Storage 기능이 파일(이미지, PDF, 동영상 등)을
+# 어디에 저장할지 정의하는 설정 파일입니다.
+
 test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
