@@ -501,5 +501,10 @@ a:hover { opacity: 0.8; }
 }
 .confirm-modal h3 { margin-top: 0; margin-bottom: 1rem; color: white; }
 .confirm-modal p { color: #a0aec0; margin-bottom: 2rem; }
-.confirm-modal-actions { display: flex; justify-content: center; gap: 1rem; }
-.confirm-modal-actions .button { min-width: 100px; }
+.confirm-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.confirm-modal-actions .button { min-width: 120px; }

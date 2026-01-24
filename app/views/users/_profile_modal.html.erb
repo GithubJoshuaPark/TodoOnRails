@@ -30,9 +30,9 @@
           <%= f.text_area :bio, class: "input-area", placeholder: "Tell us about yourself", rows: 3 %>
         </div>
 
-        <div class="confirm-modal-actions" style="margin-top: 2rem; display: flex; gap: 1rem;">
-          <%= link_to "Cancel", root_path, class: "button secondary", style: "flex: 1; display: inline-flex; align-items: center; justify-content: center; height: 3rem;" %>
-          <%= f.button "Save", class: "button primary", type: "submit", style: "flex: 1; display: inline-flex; align-items: center; justify-content: center; height: 3rem;" %>
+        <div class="confirm-modal-actions">
+          <%= link_to "Cancel", root_path, class: "button secondary" %>
+          <%= f.button "Save", class: "button success", type: "submit" %>
         </div>
       <% end %>
     </div>
