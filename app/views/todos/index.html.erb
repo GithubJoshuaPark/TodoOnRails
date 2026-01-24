@@ -1,18 +1,30 @@
-<div class="todos-container">
-  <h1>My Todos</h1>
-
-  <div class="search-bar">
-    <%= search_form_for @q do |f| %>
-      <div class="search-input-group">
-        <%= f.search_field :title_or_description_cont, placeholder: "Search todos...", class: "search-input" %>
-        <%= f.submit "Search", class: "button search-button" %>
-      </div>
-    <% end %>
+<div class="todos-container" style="max-width: 800px; margin: 0 auto; padding-top: 2rem;">
+  <div style="text-align: center; margin-bottom: 2rem;">
+    <%= image_tag "nano_banana.png", style: "width: 150px; height: auto; border-radius: 20px; box-shadow: 0 4px 15px rgba(255,255,255,0.1); transition: transform 0.3s;" %>
   </div>
 
-  <%= turbo_frame_tag "new_todo_frame" do %>
-    <%= link_to "New Todo", new_todo_path, class: "button primary" %>
-  <% end %>
+  <div class="glass-panel" style="padding: 1.5rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+    <div class="search-bar" style="flex: 1;">
+      <%= search_form_for @q, data: { controller: "autosubmit", turbo_frame: "todos_list" } do |f| %>
+        <div class="search-input-group" style="display: flex; gap: 0.5rem; align-items: center;">
+          <i class="bi bi-search" style="color: var(--text-muted); margin-left: 0.5rem;"></i>
+          <%= f.search_field :title_or_description_cont, placeholder: "Search...", class: "input-field", style: "border: none; background: transparent; padding-left: 0.5rem;", data: { action: "input->autosubmit#submit" } %>
+
+          <div style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 0.5rem; display: flex; align-items: center;">
+            <select name="q[completed_eq]" class="input-field" style="border: none; background: transparent; padding: 0 0.5rem; width: auto; font-size: 0.9rem;" onchange="this.form.requestSubmit()">
+              <option value="" <%= 'selected' if params.dig(:q, :completed_eq).blank? %> style="color: black;">All</option>
+              <option value="false" <%= 'selected' if params.dig(:q, :completed_eq) == 'false' %> style="color: black;">Active</option>
+              <option value="true" <%= 'selected' if params.dig(:q, :completed_eq) == 'true' %> style="color: black;">Done</option>
+            </select>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%= link_to new_todo_path, data: { turbo_frame: "modal" }, class: "button primary", style: "border-radius: 50%; width: 42px; height: 42px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);", title: "New Todo" do %>
+        <i class="bi bi-plus-lg" style="font-size: 1.2rem;"></i>
+    <% end %>
+  </div>
 
   <div id="todos_list" class="todos-list">
     <%= render @todos %>

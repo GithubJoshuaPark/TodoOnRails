@@ -1,42 +1,50 @@
 <%= form_with(model: todo, class: "todo-form") do |form| %>
   <% if todo.errors.any? %>
-    <div class="error-messages">
-      <h2><%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:</h2>
-      <ul>
-        <% todo.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="toast alert" style="position: static; margin-bottom: 2rem; transform: none; animation: none;">
+      <div class="toast-content" style="width: 100%;">
+        <h4 style="margin: 0 0 0.5rem 0;"><%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:</h4>
+        <ul style="margin: 0; padding-left: 1.5rem;">
+          <% todo.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title, required: true, class: "input-field" %>
+    <%= form.text_field :title, required: true, class: "input-field", placeholder: "What needs to be done?" %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description, class: "input-area" %>
+    <%= form.text_area :description, class: "input-area", placeholder: "Add details (optional)" %>
   </div>
 
-  <div class="field">
-    <%= form.label :due_date %>
-    <%= form.datetime_field :due_date, class: "input-field" %>
+  <div style="display: flex; gap: 1rem;">
+    <div class="field" style="flex: 1;">
+      <%= form.label :due_date %>
+      <%= form.datetime_field :due_date, class: "input-field", onclick: "this.showPicker()" %>
+    </div>
+
+    <div class="field" style="flex: 1;">
+      <%= form.label :priority %>
+      <%= form.select :priority, Todo.priorities.keys.map { |w| [w.humanize, w] }, {}, class: "input-field" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :priority %>
-    <%= form.select :priority, Todo.priorities.keys.map { |w| [w.humanize, w] }, {}, class: "input-field" %>
+  <div class="field checkbox" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem;">
+    <%= form.check_box :completed, class: "checkbox-input", style: "width: 20px; height: 20px;" %>
+    <%= form.label :completed, style: "margin: 0;" %>
   </div>
 
-  <div class="field checkbox">
-    <%= form.check_box :completed %>
-    <%= form.label :completed %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit class: "button primary" %>
-    <%= link_to "Cancel", todos_path, class: "button secondary" %>
+  <div class="confirm-modal-actions">
+    <% if todo.new_record? %>
+      <button type="button" class="button secondary" onclick="this.closest('dialog').close()">Cancel</button>
+    <% else %>
+      <%= link_to "Cancel", todo, class: "button secondary" %>
+    <% end %>
+    <%= form.submit (todo.new_record? ? "Add" : "Save"), class: "button success" %>
   </div>
 <% end %>

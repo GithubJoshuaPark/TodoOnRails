@@ -1,6 +1,12 @@
-<%= turbo_frame_tag "new_todo_frame", target: "_top" do %>
-  <div class="modal-form-container">
-    <h2>New Todo</h2>
-    <%= render "form", todo: @todo %>
-  </div>
+<%= turbo_frame_tag "modal" do %>
+  <dialog class="confirm-modal" open>
+    <div class="confirm-modal-wrapper">
+      <div class="confirm-modal-content">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <%= image_tag "beautiful_todo.png", style: "width: 150px; height: auto; border-radius: 20px; box-shadow: 0 4px 15px rgba(255,255,255,0.1); transition: transform 0.3s;" %>
+        </div>
+        <%= render "form", todo: @todo %>
+      </div>
+    </div>
+  </dialog>
 <% end %>

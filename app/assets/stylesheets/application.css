@@ -185,6 +185,17 @@ a:hover { opacity: 0.8; }
   background: rgba(197, 48, 48, 0.1);
 }
 
+.button.success {
+  background: rgba(47, 133, 90, 0.3);
+  border: 1px solid rgba(47, 133, 90, 0.6);
+  color: #68d391;
+}
+.button.success:hover {
+  background: rgba(47, 133, 90, 0.5);
+  color: white;
+  box-shadow: 0 0 15px rgba(47, 133, 90, 0.3);
+}
+
 /* Forms */
 .field { margin-bottom: 1.5rem; }
 .field label {
@@ -207,6 +218,11 @@ a:hover { opacity: 0.8; }
   font-size: 1rem;
   color: white;
   transition: all 0.2s;
+}
+
+.input-field::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
 }
 
 .input-field:focus, .input-area:focus, .search-input:focus {
@@ -277,6 +293,23 @@ a:hover { opacity: 0.8; }
 .todo-content p { margin: 0; color: #a0aec0; }
 .todo-content small { display: block; margin-top: 0.5rem; color: #525252; font-size: 0.85rem; }
 
+.todo-card-footer {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+.todo-priority {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 .todo-actions {
   display: flex;
   gap: 0.5rem;
@@ -284,6 +317,7 @@ a:hover { opacity: 0.8; }
   justify-content: flex-end;
   width: 100%;
 }
+
 
 /* Static Pages */
 .intro-container { text-align: center; padding: 6rem 1rem; }
@@ -440,7 +474,7 @@ a:hover { opacity: 0.8; }
 .confirm-modal {
   position: fixed; inset: 0; width: 100vw; height: 100vh;
   margin: 0; padding: 0; max-width: none; max-height: none;
-  background: transparent; border: none; z-index: 1001;
+  background: transparent; border: none; z-index: 99999;
 }
 .confirm-modal::backdrop {
   background: rgba(0, 0, 0, 0.6);

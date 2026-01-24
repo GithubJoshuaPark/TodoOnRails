@@ -3,9 +3,6 @@
     <div class="todo-content">
       <h3 class="<%= 'completed' if todo.completed? %>">
         <%= todo.title %>
-        <% if todo.priority.present? %>
-          <span class="badge <%= todo.priority %>"><%= todo.priority.humanize %></span>
-        <% end %>
       </h3>
       <p><%= todo.description %></p>
 
@@ -18,9 +15,16 @@
         <span>Created: <%= todo.created_at.to_fs(:short) %></span>
       </div>
     </div>
-    <div class="todo-actions">
-      <%= link_to "Edit", edit_todo_path(todo), class: "button small" %>
-      <%= button_to "Delete", todo_path(todo), method: :delete, class: "button small danger", form: { data: { turbo_confirm: "Are you sure?", turbo_frame: "_top" } } %>
+    <div class="todo-card-footer">
+      <div class="todo-priority">
+        <% if todo.priority.present? %>
+          <span class="badge <%= todo.priority %>"><%= todo.priority.humanize %></span>
+        <% end %>
+      </div>
+      <div class="todo-actions">
+        <%= link_to "Edit", edit_todo_path(todo), class: "button small" %>
+        <%= button_to "Delete", todo_path(todo), method: :delete, class: "button small danger", form: { data: { turbo_confirm: "Are you sure?", turbo_frame: "_top" } } %>
+      </div>
     </div>
   </div>
 <% end %>

@@ -1,6 +1,9 @@
 class TodosController < ApplicationController
   # set_todo를 edit, update, destroy에서 사용하기 위해 선언
-  before_action :set_todo, only: [ :edit, :update, :destroy ]
+  before_action :set_todo, only: [ :show, :edit, :update, :destroy ]
+
+  def show
+  end
 
   # 할 일 목록 조회
   def index

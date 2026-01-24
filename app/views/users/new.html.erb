@@ -1,39 +1,41 @@
-<div style="max-width: 400px; margin: 100px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
-  <h1 style="text-align: center;">Sign Up</h1>
+<div class="auth-container">
+  <h1 style="text-align: center; margin-bottom: 2rem;">Sign Up</h1>
 
   <% if @user.errors.any? %>
-    <div style="color: red; margin-bottom: 20px;">
-      <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+    <div class="toast alert" style="position: static; margin-bottom: 2rem; transform: none; animation: none;">
+      <div class="toast-content" style="width: 100%;">
+        <h4 style="margin: 0 0 0.5rem 0;"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
+        <ul style="margin: 0; padding-left: 1.5rem;">
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
   <%= form_with model: @user, url: signup_path, local: true do |form| %>
-    <div style="margin-bottom: 15px;">
-      <%= form.label :login_id, "Login ID", style: "display: block; margin-bottom: 5px;" %>
-      <%= form.text_field :login_id, style: "width: 100%; padding: 8px; box-sizing: border-box;" %>
+    <div class="field">
+      <%= form.label :login_id, "Login ID" %>
+      <%= form.text_field :login_id, class: "input-field", placeholder: "Choose a Login ID" %>
     </div>
 
-    <div style="margin-bottom: 15px;">
-      <%= form.label :password, "Password", style: "display: block; margin-bottom: 5px;" %>
-      <%= form.password_field :password, style: "width: 100%; padding: 8px; box-sizing: border-box;" %>
+    <div class="field">
+      <%= form.label :password, "Password" %>
+      <%= form.password_field :password, class: "input-field", placeholder: "Choose a password" %>
     </div>
 
-    <div style="margin-bottom: 15px;">
-      <%= form.label :password_confirmation, "Password Confirmation", style: "display: block; margin-bottom: 5px;" %>
-      <%= form.password_field :password_confirmation, style: "width: 100%; padding: 8px; box-sizing: border-box;" %>
+    <div class="field">
+      <%= form.label :password_confirmation, "Password Confirmation" %>
+      <%= form.password_field :password_confirmation, class: "input-field", placeholder: "Confirm password" %>
     </div>
 
-    <div>
-      <%= form.submit "Sign Up", style: "width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;" %>
+    <div class="actions" style="margin-top: 2rem;">
+      <%= form.submit "Sign Up", class: "button primary", style: "width: 100%; background-color: var(--success-color); border-color: var(--success-color);" %>
     </div>
   <% end %>
 
-  <div style="margin-top: 15px; text-align: center;">
-    <%= link_to "Already have an account? Login", login_path, style: "text-decoration: none; color: #007bff;" %>
+  <div style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+    Already have an account? <%= link_to "Login", login_path, style: "color: var(--accent-color); font-weight: bold; text-decoration: underline;" %>
   </div>
 </div>

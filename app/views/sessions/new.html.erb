@@ -1,37 +1,29 @@
-<div style="max-width: 400px; margin: 100px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
-  <h1 style="text-align: center;">Login</h1>
+<div class="auth-container">
+  <h1 style="text-align: center; margin-bottom: 2rem;">Login</h1>
 
   <% if flash[:alert] %>
-    <div style="color: red; margin-bottom: 20px;">
-      <%= flash[:alert] %>
+    <div class="toast alert" style="position: static; margin-bottom: 2rem; transform: none; animation: none;">
+      <div class="toast-content"><%= flash[:alert] %></div>
     </div>
   <% end %>
-
-  <!--
-  <% if flash[:notice] %>
-    <div style="color: green; margin-bottom: 20px;">
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
-  -->
 
   <%= form_with url: login_path, local: true do |form| %>
-    <div style="margin-bottom: 15px;">
-      <%= form.label :login_id, "Login ID", style: "display: block; margin-bottom: 5px;" %>
-      <%= form.text_field :login_id, style: "width: 100%; padding: 8px; box-sizing: border-box;" %>
+    <div class="field">
+      <%= form.label :login_id, "Login ID" %>
+      <%= form.text_field :login_id, class: "input-field", placeholder: "Enter your ID" %>
     </div>
 
-    <div style="margin-bottom: 15px;">
-      <%= form.label :password, "Password", style: "display: block; margin-bottom: 5px;" %>
-      <%= form.password_field :password, style: "width: 100%; padding: 8px; box-sizing: border-box;" %>
+    <div class="field">
+      <%= form.label :password, "Password" %>
+      <%= form.password_field :password, class: "input-field", placeholder: "Enter your password" %>
     </div>
 
-    <div>
-      <%= form.submit "Login", style: "width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;" %>
+    <div class="actions" style="margin-top: 2rem;">
+      <%= form.submit "Login", class: "button primary", style: "width: 100%;" %>
     </div>
   <% end %>
 
-  <div style="margin-top: 15px; text-align: center;">
-    <%= link_to "Don't have an account? Sign Up", signup_path, style: "text-decoration: none; color: #007bff;" %>
+  <div style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+    Don't have an account? <%= link_to "Sign Up", signup_path, style: "color: var(--accent-color); font-weight: bold; text-decoration: underline;" %>
   </div>
 </div>
