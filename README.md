@@ -8,7 +8,9 @@
 ---
 
 > **🎯 프로젝트 목표**
->
+
+<img src="rails_todo_header.png" alt="Ruby on Rails Todo App" width="200" height="200" />
+
 > **개발자 Background**: SpringBoot, React, Angular, Vue 개발 경험 보유
 > <br>**Challenge**: AI 시대 1인 창업을 위한 다양한 프레임워크 경험 필요
 > <br>**Goal**: Rails Framework을 활용하여 **TodoOnRails** 프로젝트를 직접 구현하며, Rails의 철학과 구조를 깊이 이해하는 것
