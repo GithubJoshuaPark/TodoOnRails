@@ -1,9 +1,22 @@
 <%= turbo_frame_tag todo do %>
   <div class="todo-item" id="<%= dom_id todo %>">
     <div class="todo-content">
-      <h3 class="<%= 'completed' if todo.completed? %>"><%= todo.title %></h3>
+      <h3 class="<%= 'completed' if todo.completed? %>">
+        <%= todo.title %>
+        <% if todo.priority.present? %>
+          <span class="badge <%= todo.priority %>"><%= todo.priority.humanize %></span>
+        <% end %>
+      </h3>
       <p><%= todo.description %></p>
-      <small><%= todo.created_at.to_fs(:short) %></small>
+
+      <div class="todo-meta" style="display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.85rem; color: #a0aec0;">
+        <% if todo.due_date.present? %>
+          <span style="color: <%= todo.due_date < Time.current ? 'var(--danger-color)' : 'inherit' %>">
+            📅 <%= todo.due_date.strftime("%Y-%m-%d %H:%M") %>
+          </span>
+        <% end %>
+        <span>Created: <%= todo.created_at.to_fs(:short) %></span>
+      </div>
     </div>
     <div class="todo-actions">
       <%= link_to "Edit", edit_todo_path(todo), class: "button small" %>

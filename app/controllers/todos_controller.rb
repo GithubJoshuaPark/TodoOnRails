@@ -51,6 +51,6 @@ class TodosController < ApplicationController
 
   # 할 일 파라미터
   def todo_params
-    params.require(:todo).permit(:title, :description, :completed)
+    params.require(:todo).permit(:title, :description, :completed, :due_date, :priority)
   end
 end

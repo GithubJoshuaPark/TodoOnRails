@@ -308,11 +308,20 @@ a:hover { opacity: 0.8; }
   backdrop-filter: blur(4px);
 }
 .pagination a:hover { background: rgba(255,255,255,0.15); color: white; }
-.pagination .current {
-  background: white;
-  color: black;
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
   font-weight: bold;
+  margin-left: 0.5rem;
+  vertical-align: middle;
 }
+
+.badge.low { background-color: rgba(40, 167, 69, 0.2); color: #48bb78; border: 1px solid #2f855a; }
+.badge.medium { background-color: rgba(236, 201, 75, 0.2); color: #ecc94b; border: 1px solid #d69e2e; }
+.badge.high { background-color: rgba(245, 101, 101, 0.2); color: #f56565; border: 1px solid #c53030; }
 
 /* Toast Notifications */
 .toast-container {

@@ -20,6 +20,16 @@
     <%= form.text_area :description, class: "input-area" %>
   </div>
 
+  <div class="field">
+    <%= form.label :due_date %>
+    <%= form.datetime_field :due_date, class: "input-field" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :priority %>
+    <%= form.select :priority, Todo.priorities.keys.map { |w| [w.humanize, w] }, {}, class: "input-field" %>
+  </div>
+
   <div class="field checkbox">
     <%= form.check_box :completed %>
     <%= form.label :completed %>

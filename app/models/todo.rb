@@ -15,6 +15,9 @@ class Todo < ApplicationRecord
   # 유효성 검사
   validates :title, presence: true
 
+  # 우선순위 설정 (Low: 0, Medium: 1, High: 2)
+  enum :priority, { low: 0, medium: 1, high: 2 }, default: :medium
+
   # Ransack용 설정
   def self.ransackable_attributes(auth_object = nil)
     [ "title", "description", "completed", "created_at", "updated_at" ]
