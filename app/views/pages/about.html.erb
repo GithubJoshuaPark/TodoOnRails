@@ -1,17 +1,26 @@
-<div class="about-container">
-  <h1>About</h1>
-  <p>
-    TodoOnRails is a modern task management application built with
-    <strong>Ruby on Rails 8</strong> and <strong>Hotwire</strong>.
-  </p>
-  <p>Features include:</p>
-  <ul>
-    <li>Secure User Authentication</li>
-    <li>Real-time updates with Turbo</li>
-    <li>Fast performance</li>
-  </ul>
+<div class="about-page-wrapper">
+  <!-- Background Image -->
+  <div class="about-background">
+    <%= image_tag "nano_banana.png", class: "about-bg-image" %>
+  </div>
 
-  <div class="todo-actions">
-    <%= link_to "Home", root_path, class: "button secondary" %>
+  <!-- Content Overlay -->
+  <div class="about-container">
+    <h1>About</h1>
+    <p>
+      TodoOnRails is a modern task management application built with
+      <strong>Ruby on Rails 8</strong> and <strong>Hotwire</strong>.
+    </p>
+    <p>Features include:</p>
+    <ul>
+      <li>✨ Secure User Authentication</li>
+      <li>⚡ Real-time updates with Turbo</li>
+      <li>🚀 Fast performance</li>
+      <li>🎨 Beautiful Glassmorphism UI</li>
+    </ul>
+
+    <div class="confirm-modal-actions" style="margin-top: 2rem;">
+      <%= link_to "🏠 Home", root_path, class: "button secondary" %>
+    </div>
   </div>
 </div>

@@ -1,0 +1,48 @@
+<%#
+  Rich Text Editor Component
+
+  Parameters:
+  - form: form builder object
+  - field: field name (symbol)
+  - label: label text (optional)
+  - placeholder: placeholder text (optional)
+  - readonly: boolean (default: false)
+  - value: initial value (optional)
+%>
+
+<%
+  readonly ||= false
+  placeholder ||= "Start typing..."
+  label ||= field.to_s.humanize
+  value ||= form.object.send(field) if form.object.respond_to?(field)
+  editor_id = "rich-editor-#{field}-#{SecureRandom.hex(4)}"
+%>
+
+<div class="field rich-editor-container" data-controller="rich-editor">
+  <%= form.label field, label %>
+
+  <!-- Quill Editor Container -->
+  <div id="<%= editor_id %>"
+       class="rich-editor-content"
+       data-rich-editor-target="editor"
+       data-readonly="<%= readonly %>"
+       data-placeholder="<%= placeholder %>">
+    <%= value.to_s.html_safe %>
+  </div>
+
+  <!-- Hidden Field to Store Content -->
+  <%= form.hidden_field field,
+      data: { rich_editor_target: "hiddenField" },
+      value: value %>
+
+  <% unless readonly %>
+    <div class="rich-editor-toolbar" data-rich-editor-target="toolbar">
+      <button type="button" class="ql-bold" title="Bold">B</button>
+      <button type="button" class="ql-italic" title="Italic">I</button>
+      <button type="button" class="ql-underline" title="Underline">U</button>
+      <button type="button" class="ql-list" value="ordered" title="Numbered List">1.</button>
+      <button type="button" class="ql-list" value="bullet" title="Bullet List">•</button>
+      <button type="button" class="ql-link" title="Link">🔗</button>
+    </div>
+  <% end %>
+</div>

@@ -4,7 +4,9 @@
       <h3 class="<%= 'completed' if todo.completed? %>">
         <%= todo.title %>
       </h3>
-      <p><%= todo.description %></p>
+      <div class="todo-description">
+        <%= sanitize(todo.description, tags: %w[p br strong em u a ul ol li], attributes: %w[href]) %>
+      </div>
 
       <div class="todo-meta" style="display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.85rem; color: #a0aec0;">
         <% if todo.due_date.present? %>
@@ -22,7 +24,7 @@
         <% end %>
       </div>
       <div class="todo-actions">
-        <%= link_to "Edit", edit_todo_path(todo), class: "button small" %>
+        <%= link_to "Edit", edit_todo_path(todo), class: "button small secondary" %>
         <%= button_to "Delete", todo_path(todo), method: :delete, class: "button small danger", form: { data: { turbo_confirm: "Are you sure?", turbo_frame: "_top" } } %>
       </div>
     </div>

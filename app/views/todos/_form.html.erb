@@ -17,20 +17,31 @@
     <%= form.text_field :title, required: true, class: "input-field", placeholder: "What needs to be done?" %>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description, class: "input-area", placeholder: "Add details (optional)" %>
-  </div>
+  <%= render 'shared/rich_editor',
+      form: form,
+      field: :description,
+      label: "Description",
+      placeholder: "Add details (optional)",
+      readonly: false %>
 
-  <div style="display: flex; gap: 1rem;">
-    <div class="field" style="flex: 1;">
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <div class="field" style="flex: 1; min-width: 200px;">
       <%= form.label :due_date %>
       <%= form.datetime_field :due_date, class: "input-field", onclick: "this.showPicker()" %>
     </div>
 
-    <div class="field" style="flex: 1;">
+    <div class="field priority-field" style="flex: 1; min-width: 200px;">
       <%= form.label :priority %>
-      <%= form.select :priority, Todo.priorities.keys.map { |w| [w.humanize, w] }, {}, class: "input-field" %>
+      <div class="priority-button-group">
+        <% Todo.priorities.keys.each do |priority| %>
+          <%= form.radio_button :priority, priority,
+              id: "todo_priority_#{priority}",
+              class: "priority-radio-input" %>
+          <%= form.label "priority_#{priority}",
+              priority.humanize,
+              class: "priority-button priority-#{priority}" %>
+        <% end %>
+      </div>
     </div>
   </div>
 

@@ -25,10 +25,12 @@
           <%= f.text_field :user_name, class: "input-field", placeholder: "Enter your name" %>
         </div>
 
-        <div class="field">
-          <%= f.label :bio, "Bio" %>
-          <%= f.text_area :bio, class: "input-area", placeholder: "Tell us about yourself", rows: 3 %>
-        </div>
+        <%= render 'shared/rich_editor',
+            form: f,
+            field: :bio,
+            label: "Bio",
+            placeholder: "Tell us about yourself...",
+            readonly: false %>
 
         <div class="confirm-modal-actions">
           <%= link_to "Cancel", root_path, class: "button secondary" %>
