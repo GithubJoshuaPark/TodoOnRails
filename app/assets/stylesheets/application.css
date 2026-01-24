@@ -36,6 +36,18 @@ body {
   background: #000000;
   /* Optional: Subtle gradient to give depth, but keeping it mainly black */
   background: radial-gradient(circle at top right, #1a1a1a, #000000 60%);
+
+  /* Smooth fade-in animation */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 a { text-decoration: none; color: inherit; transition: opacity 0.2s; }
@@ -925,17 +937,139 @@ a:hover { opacity: 0.8; }
 
 
 /* Pagination */
-.pagination-container { margin-top: 3rem; text-align: center; }
-.pagination { display: inline-flex; gap: 0.5rem; }
-.pagination span, .pagination a {
-  padding: 0.5rem 1rem;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
-  color: #a0aec0;
-  backdrop-filter: blur(4px);
+.pagination-container {
+  margin-top: 3rem;
+  text-align: center;
+  padding: 0 1rem;
 }
-.pagination a:hover { background: rgba(255,255,255,0.15); color: white; }
+
+.pagination {
+  display: inline-flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination span,
+.pagination a {
+  padding: 0.6rem 1rem;
+
+  /* Elegant glassmorphism */
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  font-weight: 500;
+
+  /* Subtle effects */
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  white-space: nowrap;
+  min-width: 44px;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+/* Hover state */
+.pagination a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Active state */
+.pagination a:active {
+  transform: translateY(0);
+}
+
+/* Current page */
+.pagination .current,
+.pagination .page.current {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.08));
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+}
+
+/* Disabled state */
+.pagination .disabled,
+.pagination .gap {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Navigation buttons (First, Prev, Next, Last) */
+.pagination .first,
+.pagination .prev,
+.pagination .next,
+.pagination .last {
+  font-weight: 500;
+}
+
+/* Page numbers */
+.pagination .page {
+  min-width: 44px;
+}
+
+/* Mobile optimization for pagination */
+@media (max-width: 768px) {
+  .pagination-container {
+    padding: 0 0.5rem;
+  }
+
+  .pagination {
+    gap: 0.35rem;
+  }
+
+  .pagination span,
+  .pagination a {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+    min-width: 40px;
+    border-radius: 10px;
+  }
+
+  /* Simplify navigation labels on mobile */
+  .pagination .first a,
+  .pagination .last a {
+    padding: 0.5rem 0.7rem;
+  }
+}
+
+/* Extra small screens - use symbols only */
+@media (max-width: 480px) {
+  .pagination span,
+  .pagination a {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.85rem;
+    min-width: 38px;
+  }
+
+  /* Replace text with symbols */
+  .pagination .first a { font-size: 0; }
+  .pagination .first a::before { content: "⟪"; font-size: 1rem; }
+
+  .pagination .prev a { font-size: 0; }
+  .pagination .prev a::before { content: "‹"; font-size: 1.2rem; }
+
+  .pagination .next a { font-size: 0; }
+  .pagination .next a::before { content: "›"; font-size: 1.2rem; }
+
+  .pagination .last a { font-size: 0; }
+  .pagination .last a::before { content: "⟫"; font-size: 1rem; }
+}
+
 /* Badges */
 .badge {
   display: inline-block;

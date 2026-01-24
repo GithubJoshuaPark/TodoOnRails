@@ -8,7 +8,8 @@ class TodosController < ApplicationController
   # 할 일 목록 조회
   def index
     @q = current_user.todos.ransack(params[:q])
-    @todos = @q.result.order(created_at: :desc).page(params[:page])
+    per_page = [ 10, 25, 50 ].include?(params[:per_page].to_i) ? params[:per_page].to_i : 10
+    @todos = @q.result.order(created_at: :desc).page(params[:page]).per(per_page)
   end
 
   # 할 일 추가 화면

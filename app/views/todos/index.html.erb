@@ -3,8 +3,8 @@
     <%= image_tag "rails_todo_header.png", style: "width: 150px; height: auto; border-radius: 20px; box-shadow: 0 4px 15px rgba(255,255,255,0.1); transition: transform 0.3s;" %>
   </div>
 
-  <div class="glass-panel" style="padding: 1.5rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
-    <div class="search-bar" style="flex: 1;">
+  <div class="glass-panel" style="padding: 1.5rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+    <div class="search-bar" style="flex: 1; min-width: 300px;">
       <%= search_form_for @q, data: { controller: "autosubmit", turbo_frame: "todos_list" } do |f| %>
         <div class="search-input-group" style="display: flex; gap: 0.5rem; align-items: center;">
           <i class="bi bi-search" style="color: var(--text-muted); margin-left: 0.5rem;"></i>
@@ -21,10 +21,31 @@
       <% end %>
     </div>
 
-    <%= link_to new_todo_path, data: { turbo_frame: "modal" }, class: "button primary", style: "border-radius: 50%; width: 42px; height: 42px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);", title: "New Todo" do %>
-        <i class="bi bi-plus-lg" style="font-size: 1.2rem;"></i>
-    <% end %>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <!-- Items per page selector -->
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span style="color: var(--text-muted); font-size: 0.9rem; white-space: nowrap;">Show:</span>
+        <select id="per-page-selector" class="input-field" style="padding: 0.5rem 1rem; width: auto; font-size: 0.9rem;" onchange="updatePerPage(this.value)">
+          <option value="10" <%= 'selected' if params[:per_page].to_i == 10 || params[:per_page].blank? %>>10</option>
+          <option value="25" <%= 'selected' if params[:per_page].to_i == 25 %>>25</option>
+          <option value="50" <%= 'selected' if params[:per_page].to_i == 50 %>>50</option>
+        </select>
+      </div>
+
+      <%= link_to new_todo_path, data: { turbo_frame: "modal" }, class: "button primary", style: "border-radius: 50%; width: 42px; height: 42px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);", title: "New Todo" do %>
+          <i class="bi bi-plus-lg" style="font-size: 1.2rem;"></i>
+      <% end %>
+    </div>
   </div>
+
+  <script>
+    function updatePerPage(value) {
+      const url = new URL(window.location);
+      url.searchParams.set('per_page', value);
+      url.searchParams.delete('page'); // Reset to first page when changing per_page
+      window.location = url;
+    }
+  </script>
 
   <div id="todos_list" class="todos-list">
     <%= render @todos %>

@@ -26,7 +26,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body data-controller="page-transition"
+        data-action="turbo:before-visit->page-transition#beforeVisit
+                     turbo:before-render->page-transition#beforeRender
+                     turbo:render->page-transition#render">
+
     <header class="app-header">
       <nav class="main-nav" data-controller="navbar">
         <div class="logo">
