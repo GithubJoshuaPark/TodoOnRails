@@ -1324,26 +1324,6 @@ a:hover { opacity: 0.8; }
 
 .todo-actions .button {
   box-sizing: border-box;
-  line-height: 1.4;
-  min-height: 32px;
-}
-
-
-/* Static Pages */
-.intro-container { text-align: center; padding: 6rem 1rem; }
-.intro-container h1 {
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
-  color: white;
-  letter-spacing: -2px;
-}
-.intro-container p { font-size: 1.2rem; color: #a0aec0; margin-bottom: 3rem; }
-.intro-container .actions { display: flex; justify-content: center; gap: 1rem; }
-
-/* About Page with Background Image */
-.about-page-wrapper {
-  position: relative;
-  min-height: calc(100vh - 80px); /* Full height minus header */
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,9 +1,34 @@
 <div class="intro-container">
-  <h1>Welcome</h1>
-  <p>Simple, efficient task manager.</p>
+  <div class="intro-header">
+    <%= image_tag "rails_todo_header.png", class: "intro-logo" %>
+  </div>
 
-  <div class="actions">
-    <%= link_to "Login", login_path, class: "button primary" %>
-    <%= link_to "Sign Up", signup_path, class: "button secondary" %>
+  <h1 class="intro-title">Welcome to TodoOnRails</h1>
+  <p class="intro-subtitle">Simple, elegant, and efficient task management</p>
+
+  <div class="intro-features">
+    <div class="intro-feature">
+      <i class="bi bi-check2-circle"></i>
+      <span>Organize Tasks</span>
+    </div>
+    <div class="intro-feature">
+      <i class="bi bi-lightning"></i>
+      <span>Stay Productive</span>
+    </div>
+    <div class="intro-feature">
+      <i class="bi bi-shield-check"></i>
+      <span>Secure & Private</span>
+    </div>
+  </div>
+
+  <div class="intro-actions">
+    <%= link_to login_path, class: "button primary intro-button" do %>
+      <i class="bi bi-box-arrow-in-right"></i>
+      <span>Login</span>
+    <% end %>
+    <%= link_to signup_path, class: "button success intro-button" do %>
+      <i class="bi bi-person-plus"></i>
+      <span>Sign Up</span>
+    <% end %>
   </div>
 </div>
