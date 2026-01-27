@@ -29,6 +29,14 @@
     </div>
 
     <div class="field">
+      <%= form.label :user_name, "Name" %>
+      <div class="input-with-icon">
+        <i class="bi bi-person-badge"></i>
+        <%= form.text_field :user_name, class: "input-field", placeholder: "Enter your name", autocomplete: "name" %>
+      </div>
+    </div>
+
+    <div class="field">
       <%= form.label :password, "Password" %>
       <div class="input-with-icon">
         <i class="bi bi-lock"></i>

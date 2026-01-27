@@ -1,6 +1,6 @@
-<div class="kanban-board">
+<div class="kanban-board" data-controller="kanban">
   <% ['ready', 'doing', 'done', 'archived'].each do |status_key| %>
-    <div class="kanban-column" data-status="<%= status_key %>">
+    <div class="kanban-column" data-status="<%= status_key %>" data-kanban-target="column">
       <div class="kanban-column-header">
         <h3>
           <% if status_key == 'ready' %>
@@ -57,12 +57,12 @@
           </div>
         <% end %>
 
-        <% if @todos.select { |t| t.status == status_key }.empty? %>
-          <div class="kanban-empty">
-            <i class="bi bi-inbox" style="font-size: 2rem; opacity: 0.3;"></i>
-            <p style="margin-top: 0.5rem; opacity: 0.5;">No items</p>
-          </div>
-        <% end %>
+
+
+        <div class="kanban-empty" style="<%= 'display: none;' if @todos.any? { |t| t.status == status_key } %>">
+          <i class="bi bi-inbox" style="font-size: 2rem; opacity: 0.3;"></i>
+          <p style="margin-top: 0.5rem; opacity: 0.5;">No items</p>
+        </div>
       </div>
     </div>
   <% end %>

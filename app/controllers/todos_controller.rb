@@ -40,10 +40,14 @@ class TodosController < ApplicationController
 
   # 할 일 수정 처리
   def update
-    if @todo.update(todo_params)
-      redirect_to todos_path, notice: "Todo updated successfully!"
-    else
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if @todo.update(todo_params)
+        format.html { redirect_to todos_path, notice: "Todo updated successfully!" }
+        format.json { render json: @todo, status: :ok }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @todo.errors, status: :unprocessable_entity }
+      end
     end
   end
 
