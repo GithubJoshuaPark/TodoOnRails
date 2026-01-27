@@ -1,12 +1,13 @@
 <%= turbo_frame_tag "modal" do %>
-  <dialog class="confirm-modal" open>
-    <div class="confirm-modal-wrapper">
-      <div class="confirm-modal-content">
-        <div style="text-align: center; margin-bottom: 2rem;">
-          <%= image_tag "rails_todo_header.png", style: "width: 150px; height: auto; border-radius: 20px; box-shadow: 0 4px 15px rgba(255,255,255,0.1); transition: transform 0.3s;" %>
-        </div>
-        <%= render "form", todo: @todo %>
+  <div class="modal-backdrop" data-controller="modal" data-action="click->modal#closeBackground keyup.esc@window->modal#close">
+    <div class="modal-content glass-panel">
+      <button class="modal-close-btn" data-action="click->modal#close" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; color: white; font-size: 1.5rem; cursor: pointer;">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <%= image_tag "rails_todo_header.png", style: "width: 150px; height: auto; border-radius: 20px; box-shadow: 0 4px 15px rgba(255,255,255,0.1); transition: transform 0.3s;" %>
       </div>
+      <%= render "form", todo: @todo %>
     </div>
-  </dialog>
+  </div>
 <% end %>
