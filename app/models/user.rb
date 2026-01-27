@@ -12,6 +12,9 @@ class User < ApplicationRecord
   # : authenticate 메소드를 통해 비밀번호 검증 가능
   has_secure_password
 
+  # 역할 설정 (admin: 0, user: 1)
+  enum :role, { admin: 0, user: 1 }, default: :user
+
   # 유효성 검사
   # validates :login_id, presence: true, uniqueness: true
   # : login_id가 반드시 존재해야 하고(presence: true),

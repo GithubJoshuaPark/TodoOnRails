@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_24_082639) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_25_100003) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_24_082639) do
     t.datetime "created_at", null: false
     t.string "login_id"
     t.string "password_digest"
+    t.integer "role", default: 1, null: false
     t.datetime "updated_at", null: false
     t.string "user_name"
     t.index ["login_id"], name: "index_users_on_login_id", unique: true

@@ -8,6 +8,8 @@ class CreateTodos < ActiveRecord::Migration[8.1]
       t.string :title
       t.text :description
       t.boolean :completed, default: false # 완료 여부
+      t.datetime :due_date # 마감일
+      t.integer :priority # 우선순위
 
       # 사용자(User)와의 Foreign Key관계
       # null: false -> 반드시 값이 있어야 함
