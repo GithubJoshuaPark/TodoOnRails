@@ -1,11 +1,29 @@
-<div class="todos-container" style="max-width: 800px; margin: 0 auto; padding-top: 2rem;">
+<div class="todos-container" style="max-width: <%= @view_mode == 'kanban' ? '100%' : '800px' %>; margin: 0 auto; padding-top: 2rem;">
   <div style="text-align: center; margin-bottom: 2rem;">
     <%= image_tag "rails_todo_header.png", style: "width: 150px; height: auto; border-radius: 20px; box-shadow: 0 4px 15px rgba(255,255,255,0.1); transition: transform 0.3s;" %>
   </div>
 
+  <!-- View Toggle Buttons -->
+  <div style="display: flex; justify-content: center; margin-bottom: 1rem; gap: 0.5rem;">
+    <% list_params = request.query_parameters.except(:view_mode).merge(view_mode: 'list') %>
+    <%= link_to todos_path(list_params),
+        class: "view-toggle-btn #{@view_mode == 'list' ? 'active' : ''}",
+        style: "padding: 0.5rem 1.5rem; border-radius: 8px; text-decoration: none; transition: all 0.3s; #{@view_mode == 'list' ? 'background: rgba(255,255,255,0.2); color: white;' : 'background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6);'}" do %>
+      <i class="bi bi-list-ul"></i> List
+    <% end %>
+    <% kanban_params = request.query_parameters.except(:view_mode, :page, :per_page).merge(view_mode: 'kanban') %>
+    <%= link_to todos_path(kanban_params),
+        class: "view-toggle-btn #{@view_mode == 'kanban' ? 'active' : ''}",
+        style: "padding: 0.5rem 1.5rem; border-radius: 8px; text-decoration: none; transition: all 0.3s; #{@view_mode == 'kanban' ? 'background: rgba(255,255,255,0.2); color: white;' : 'background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6);'}" do %>
+      <i class="bi bi-kanban"></i> Kanban
+    <% end %>
+  </div>
+
   <div class="glass-panel" style="padding: 1.5rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
     <div class="search-bar" style="flex: 1; min-width: 300px;">
-      <%= search_form_for @q, data: { controller: "autosubmit", turbo_frame: "todos_list" } do |f| %>
+      <%= search_form_for @q, data: { controller: "autosubmit" }, html: { method: :get } do |f| %>
+        <%= hidden_field_tag :view_mode, @view_mode %>
+        <%= hidden_field_tag :per_page, params[:per_page] if params[:per_page].present? %>
         <div class="search-input-group" style="display: flex; gap: 0.5rem; align-items: center;">
           <i class="bi bi-search" style="color: var(--text-muted); margin-left: 0.5rem;"></i>
           <%= f.search_field :title_or_description_cont, placeholder: "Search...", class: "input-field", style: "border: none; background: transparent; padding-left: 0.5rem;", data: { action: "input->autosubmit#submit" } %>
@@ -47,11 +65,19 @@
     }
   </script>
 
-  <div id="todos_list" class="todos-list">
-    <%= render @todos %>
-  </div>
+  <% if @view_mode == 'kanban' %>
+    <!-- Kanban Board View -->
+    <%= render 'kanban' %>
+  <% else %>
+    <!-- List View -->
+    <turbo-frame id="todos_list">
+      <div class="todos-list">
+        <%= render @todos %>
+      </div>
 
-  <div class="pagination-container">
-    <%= paginate @todos %>
-  </div>
+      <div class="pagination-container">
+        <%= paginate @todos %>
+      </div>
+    </turbo-frame>
+  <% end %>
 </div>

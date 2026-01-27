@@ -8,8 +8,15 @@ class TodosController < ApplicationController
   # 할 일 목록 조회
   def index
     @q = current_user.todos.ransack(params[:q])
-    per_page = [ 10, 25, 50 ].include?(params[:per_page].to_i) ? params[:per_page].to_i : 10
-    @todos = @q.result.order(created_at: :desc).page(params[:page]).per(per_page)
+    @view_mode = params[:view_mode] || "list" # 'list' 또는 'kanban'
+
+    # Kanban 모드일 때는 페이지네이션 없이 모든 항목 조회
+    if @view_mode == "kanban"
+      @todos = @q.result.order(created_at: :desc)
+    else
+      per_page = [ 10, 25, 50 ].include?(params[:per_page].to_i) ? params[:per_page].to_i : 10
+      @todos = @q.result.order(created_at: :desc).page(params[:page]).per(per_page)
+    end
   end
 
   # 할 일 추가 화면
@@ -55,6 +62,6 @@ class TodosController < ApplicationController
 
   # 할 일 파라미터
   def todo_params
-    params.require(:todo).permit(:title, :description, :completed, :due_date, :priority)
+    params.require(:todo).permit(:title, :description, :completed, :due_date, :priority, :status)
   end
 end

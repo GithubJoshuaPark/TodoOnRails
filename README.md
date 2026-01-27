@@ -117,7 +117,10 @@ bin/rails server
 2. 개발용 단축 명령어
 
 ```bash
+# 개발 서버 시작
 bin/dev
+# 또는
+bin/rails server
 ```
 
 이 명령어는 Foreman을 실행하여 개발 서버를 시작합니다.

@@ -1,0 +1,69 @@
+<div class="kanban-board">
+  <% ['ready', 'doing', 'done', 'archived'].each do |status_key| %>
+    <div class="kanban-column" data-status="<%= status_key %>">
+      <div class="kanban-column-header">
+        <h3>
+          <% if status_key == 'ready' %>
+            <i class="bi bi-inbox"></i> Ready
+          <% elsif status_key == 'doing' %>
+            <i class="bi bi-play-circle"></i> Doing
+          <% elsif status_key == 'done' %>
+            <i class="bi bi-check-circle"></i> Done
+          <% else %>
+            <i class="bi bi-archive"></i> Archived
+          <% end %>
+        </h3>
+        <span class="count"><%= @todos.select { |t| t.status == status_key }.count %></span>
+      </div>
+
+      <div class="kanban-cards">
+        <% @todos.select { |t| t.status == status_key }.each do |todo| %>
+          <div class="kanban-card glass-panel" data-todo-id="<%= todo.id %>">
+            <%= link_to edit_todo_path(todo), data: { turbo_frame: "modal" }, style: "text-decoration: none; color: inherit; display: block;" do %>
+              <div class="kanban-card-header">
+                <h4><%= todo.title %></h4>
+                <% if todo.priority %>
+                  <span class="priority-badge <%= todo.priority %>">
+                    <% if todo.priority == 'high' %>
+                      <i class="bi bi-exclamation-circle-fill"></i>
+                    <% elsif todo.priority == 'medium' %>
+                      <i class="bi bi-dash-circle-fill"></i>
+                    <% else %>
+                      <i class="bi bi-circle-fill"></i>
+                    <% end %>
+                  </span>
+                <% end %>
+              </div>
+
+              <% if todo.description.present? %>
+                <p class="kanban-card-description"><%= truncate(todo.description, length: 100) %></p>
+              <% end %>
+
+              <div class="kanban-card-footer">
+                <% if todo.due_date %>
+                  <span class="due-date <%= 'overdue' if todo.due_date < Date.today && !todo.completed %>">
+                    <i class="bi bi-calendar"></i>
+                    <%= todo.due_date.strftime('%b %d') %>
+                  </span>
+                <% end %>
+
+                <% if todo.completed %>
+                  <span class="completed-badge">
+                    <i class="bi bi-check-lg"></i> Completed
+                  </span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if @todos.select { |t| t.status == status_key }.empty? %>
+          <div class="kanban-empty">
+            <i class="bi bi-inbox" style="font-size: 2rem; opacity: 0.3;"></i>
+            <p style="margin-top: 0.5rem; opacity: 0.5;">No items</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

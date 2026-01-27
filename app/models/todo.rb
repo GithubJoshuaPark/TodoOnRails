@@ -18,9 +18,16 @@ class Todo < ApplicationRecord
   # 우선순위 설정 (Low: 0, Medium: 1, High: 2)
   enum :priority, { low: 0, medium: 1, high: 2 }, default: :medium
 
+  # 상태 컬럼 타입 명시 (Rails 8.1 요구사항)
+  attribute :status, :string
+
+  # 상태 설정 (Ready: 'R', Doing: 'D', Done: 'C', Archived: 'A')
+  # Kanban 보드의 컬럼별 분류를 위해 사용
+  enum :status, { ready: "R", doing: "D", done: "C", archived: "A" }, default: :ready
+
   # Ransack용 설정
   def self.ransackable_attributes(auth_object = nil)
-    [ "title", "description", "completed", "created_at", "updated_at" ]
+    [ "title", "description", "completed", "status", "created_at", "updated_at" ]
   end
 
   # Ransack용 설정

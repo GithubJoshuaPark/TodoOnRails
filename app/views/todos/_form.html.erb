@@ -46,6 +46,31 @@
     </div>
   </div>
 
+  <div class="field status-field" style="margin-bottom: 1.5rem;">
+    <%= form.label :status %>
+    <div class="status-button-group" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <% Todo.statuses.keys.each do |status_name| %>
+        <%= form.radio_button :status, status_name,
+            id: "todo_status_#{status_name}",
+            class: "status-radio-input",
+            style: "display: none;" %>
+        <%= form.label "status_#{status_name}",
+            class: "status-button status-#{status_name}",
+            style: "padding: 0.75rem 1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-flex; align-items: center; gap: 0.5rem;" do %>
+          <% if status_name == 'ready' %>
+            <i class="bi bi-inbox"></i> Ready
+          <% elsif status_name == 'doing' %>
+            <i class="bi bi-play-circle"></i> Doing
+          <% elsif status_name == 'done' %>
+            <i class="bi bi-check-circle"></i> Done
+          <% else %>
+            <i class="bi bi-archive"></i> Archived
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
   <div class="field checkbox" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem;">
     <%= form.check_box :completed, class: "checkbox-input", style: "width: 20px; height: 20px;" %>
     <%= form.label :completed, style: "margin: 0;" %>
