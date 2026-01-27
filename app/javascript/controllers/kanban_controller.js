@@ -6,16 +6,35 @@ export default class extends Controller {
   static targets = ["column"]
 
   connect() {
+    this.sortables = []
+    this.handleResize = this.handleResize.bind(this)
+    window.addEventListener('resize', this.handleResize)
+
+    const isMobile = window.innerWidth <= 768
+
     this.columnTargets.forEach(column => {
-      new Sortable(column.querySelector(".kanban-cards"), {
+      const sortable = new Sortable(column.querySelector(".kanban-cards"), {
         group: 'todos', // Share dragging between lists
         draggable: ".kanban-card",
         animation: 150,
         ghostClass: 'sortable-ghost',
+        disabled: isMobile, // Disable on mobile initially
         onEnd: this.updateStatus.bind(this)
       })
+      this.sortables.push(sortable)
     })
     this.checkEmptyStates()
+  }
+
+  disconnect() {
+    window.removeEventListener('resize', this.handleResize)
+  }
+
+  handleResize() {
+    const isMobile = window.innerWidth <= 768
+    this.sortables.forEach(sortable => {
+      sortable.option('disabled', isMobile)
+    })
   }
 
   updateStatus(event) {

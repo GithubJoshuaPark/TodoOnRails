@@ -1,4 +1,7 @@
-<%= form_with(model: todo, class: "todo-form", data: { turbo_frame: "_top" }) do |form| %>
+<%= form_with(model: todo,
+class: "todo-form",
+style: (mobile? ? "width: 100%" : "min-width: 500px"),
+data: { turbo_frame: "_top" }) do |form| %>
 
   <% if todo.errors.any? %>
     <div class="toast alert" style="position: static; margin-bottom: 2rem; transform: none; animation: none;">
@@ -80,7 +83,7 @@
     <% if todo.new_record? %>
       <button type="button" class="button secondary" onclick="this.closest('dialog').close()">Cancel</button>
     <% else %>
-      <%= link_to "Cancel", todo, class: "button secondary" %>
+      <button type="button" class="button secondary" data-action="click->modal#close">Cancel</button>
     <% end %>
     <%= form.submit (todo.new_record? ? "Add" : "Save"), class: "button success" %>
   </div>

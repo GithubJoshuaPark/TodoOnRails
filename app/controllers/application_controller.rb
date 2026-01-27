@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :refresh_session_expiration, if: :logged_in?
 
   # current_user와 logged_in?를 뷰에서도 사용할 수 있도록 설정
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :mobile?
 
   # 현재 로그인된 사용자 찾기
   def current_user
@@ -23,6 +23,14 @@ class ApplicationController < ActionController::Base
   # 로그인 여부 확인
   def authenticate_user!
     redirect_to login_path, alert: "Please log in first" unless logged_in?
+  end
+
+  # Mobile detection
+  def mobile?
+    agent = request.user_agent
+    return false if agent.blank?
+
+    agent =~ /Mobile|webOS|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/
   end
 
   private

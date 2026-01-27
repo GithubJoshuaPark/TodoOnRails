@@ -36,7 +36,9 @@
               </div>
 
               <% if todo.description.present? %>
-                <p class="kanban-card-description"><%= truncate(todo.description, length: 100) %></p>
+                <div class="todo-description">
+                  <%= sanitize(todo.description, tags: %w[p br strong em u a ul ol li], attributes: %w[href]) %>
+                </div>
               <% end %>
 
               <div class="kanban-card-footer">

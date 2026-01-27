@@ -1,4 +1,4 @@
-<div class="todos-container" style="max-width: <%= @view_mode == 'kanban' ? '100%' : '800px' %>; margin: 0 auto; padding-top: 0rem;">
+<div class="todos-container" style="margin: 0 auto; padding-top: 0rem; width: 100%;">
   <div style="text-align: center; margin-bottom: 2rem;">
     <%# Title: Todos %>
     <h1 style="font-size: 2.5rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">Todos</h1>
@@ -53,7 +53,11 @@
         </select>
       </div>
 
-      <%= link_to new_todo_path, data: { turbo_frame: "modal" }, class: "button primary", style: "border-radius: 50%; width: 42px; height: 42px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);", title: "New Todo" do %>
+      <%= link_to new_todo_path,
+          data: { turbo_frame: "modal" },
+          class: "button primary",
+          style: "border-radius: 50%; width: 42px; height: 42px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);",
+          title: "New Todo" do %>
           <i class="bi bi-plus-lg" style="font-size: 1.2rem;"></i>
       <% end %>
     </div>

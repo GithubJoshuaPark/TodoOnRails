@@ -24,7 +24,7 @@
         <% end %>
       </div>
       <div class="todo-actions">
-        <%= link_to "Edit", edit_todo_path(todo), class: "button small secondary" %>
+        <%= link_to "Edit", edit_todo_path(todo), class: "button small secondary", data: { turbo_frame: "modal" } %>
         <%= button_to "Delete", todo_path(todo), method: :delete, class: "button small danger", form: { data: { turbo_confirm: "Are you sure?", turbo_frame: "_top" } } %>
       </div>
     </div>

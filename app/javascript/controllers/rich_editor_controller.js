@@ -78,9 +78,20 @@ export default class extends Controller {
 
     const qlToolbar = this.editorTarget.querySelector('.ql-toolbar')
     if (qlToolbar) {
-      qlToolbar.style.background = 'rgba(255, 255, 255, 0.05)'
-      qlToolbar.style.border = '1px solid rgba(255, 255, 255, 0.1)'
-      qlToolbar.style.borderRadius = '10px 10px 0 0'
+      // If readonly, hide the toolbar completely
+      if (this.editorTarget.dataset.readonly === 'true') {
+        qlToolbar.style.display = 'none'
+        qlToolbar.style.border = 'none'
+      } else {
+        qlToolbar.style.background = 'rgba(255, 255, 255, 0.05)'
+        qlToolbar.style.border = '1px solid rgba(255, 255, 255, 0.1)'
+        qlToolbar.style.borderRadius = '10px 10px 0 0'
+      }
+    } else {
+      // If no toolbar (quill 1.3.6 might still create a container or borders), ensure no top border on editor
+      if (qlEditor) {
+        qlEditor.style.borderTop = 'none'
+      }
     }
   }
 
