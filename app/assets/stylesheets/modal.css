@@ -19,6 +19,7 @@
 .modal-content {
   width: 100%;
   max-width: 600px;
+  min-width: 500px; /* Ensure wide enough on PC */
   max-height: 90vh;
   overflow-y: auto;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -47,16 +48,13 @@
 }
 
 /* Mobile Optimization */
-/* Mobile Optimization */
 @media (max-width: 768px) {
-  .modal-content {
-    box-sizing: border-box !important; /* Force border-box */
-    width: calc(100% - 24px); /* 12px margin on each side */
-    max-width: none;
-    margin: 0; /* Centered by flex parent */
-    max-height: 85vh;
-    padding: 1.5rem;
-    border-radius: 12px;
+  /* Prevent any child from forcing overflow */
+  .modal-content > * {
+    width: 60% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .modal-close-btn {
