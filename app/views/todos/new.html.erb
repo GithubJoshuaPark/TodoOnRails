@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "modal" do %>
-  <div class="modal-backdrop" data-controller="modal" data-action="click->modal#closeBackground keyup.esc@window->modal#close">
+  <div class="modal-backdrop" data-controller="modal adaptive" data-action="click->modal#closeBackground keyup.esc@window->modal#close">
     <div class="modal-content glass-panel">
       <button class="modal-close-btn" data-action="click->modal#close" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; color: white; font-size: 1.5rem; cursor: pointer;">
         <i class="bi bi-x-lg"></i>

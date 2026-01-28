@@ -68,3 +68,26 @@
     font-size: 1.25rem !important;
   }
 }
+
+/* JS-Driven Adaptive UI Overrides */
+.mobile-view .modal-content {
+  width: 95% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 10px !important;
+  padding: 1rem !important;
+  border-radius: 12px !important;
+}
+
+.mobile-view .field {
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+.mobile-view .input-field,
+.mobile-view .todo-form input,
+.mobile-view .todo-form select,
+.mobile-view .todo-form textarea {
+  width: 100% !important;
+  font-size: 16px !important; /* Prevent zoom on iOS */
+}
