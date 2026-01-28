@@ -51,6 +51,11 @@
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
+  .modal-backdrop.mobile-view {
+    width: 63% !important; /* User requested 63% width on backdrop */
+    height: 100% !important;
+  }
+
   .modal-content {
     /* Padding adjustment for small screens */
     padding: 1.5rem;
@@ -71,6 +76,9 @@
 
 /* JS-Driven Adaptive UI Overrides */
 .mobile-view .modal-content {
+  left:0;
+  top:0;
+  position:absolute;
   width: 95% !important;
   max-width: 100% !important;
   min-width: 0 !important;

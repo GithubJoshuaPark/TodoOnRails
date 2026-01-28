@@ -18,7 +18,7 @@ export default class extends Controller {
   }
 
   checkLayout() {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth <= 768) {
       this.element.classList.add("mobile-view")
       this.element.classList.remove("desktop-view")
     } else {

@@ -53,7 +53,7 @@
         </select>
       </div>
 
-      <%= link_to new_todo_path,
+      <%= link_to new_todo_path(status: 'ready'),
           data: { turbo_frame: "modal" },
           class: "button primary",
           style: "border-radius: 50%; width: 42px; height: 42px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);",
