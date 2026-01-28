@@ -70,6 +70,27 @@
       url.searchParams.delete('page'); // Reset to first page when changing per_page
       window.location = url;
     }
+
+    // View Mode Persistence (LocalStorage)
+    document.addEventListener("turbo:load", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const serverViewMode = urlParams.get('view_mode');
+      const savedViewMode = localStorage.getItem('todo_view_mode');
+
+      // 1. If user explicitly clicked a view toggle (URL has param), save it
+      if (serverViewMode) {
+        localStorage.setItem('todo_view_mode', serverViewMode);
+      }
+      // 2. If no param in URL but we have a saved preference, redirect to it
+      //    (Only if we are on the index page and not strictly defaulting)
+      else if (savedViewMode && savedViewMode !== 'list' && !serverViewMode) {
+        // Prevent infinite loop: only redirect if current view implies 'list' default but user wants 'kanban'
+        // Since Rails defaults to 'list', we only need to act if saved is 'kanban'
+        const url = new URL(window.location);
+        url.searchParams.set('view_mode', savedViewMode);
+        Turbo.visit(url.toString(), { action: "replace" });
+      }
+    });
   </script>
 
   <% if @view_mode == 'kanban' %>

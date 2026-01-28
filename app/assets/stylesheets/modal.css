@@ -17,16 +17,18 @@
 }
 
 .modal-content {
-  width: 100%;
-  max-width: 600px;
-  min-width: 500px; /* Ensure wide enough on PC */
+  /* Smart Responsive Width (Like Profile Modal) */
+  width: 90%;          /* Mobile: Leave margins */
+  max-width: 600px;    /* PC: Cap width */
+  margin: 0 auto;      /* Center alignment */
+
   max-height: 90vh;
   overflow-y: auto;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   animation: slideUp 0.3s ease-out;
   padding: 2rem;
-  background: rgba(20, 20, 30, 0.85); /* Darker background for contrast */
+  background: rgba(20, 20, 30, 0.85);
   position: relative;
 }
 
@@ -49,10 +51,13 @@
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
+  .modal-content {
+    /* Padding adjustment for small screens */
+    padding: 1.5rem;
+  }
+
   /* Prevent any child from forcing overflow */
   .modal-content > * {
-    width: 60% !important;
-    height: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
   }

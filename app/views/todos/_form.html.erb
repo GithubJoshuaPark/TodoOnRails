@@ -2,162 +2,94 @@
 class: "todo-form",
 data: { turbo_frame: "_top" }) do |form| %>
 
-  <%# Desktop view %>
-  <% unless mobile? %>
-    <% if todo.errors.any? %>
-      <div class="toast alert" style="position: static; margin-bottom: 2rem; transform: none; animation: none;">
-        <div class="toast-content" style="width: 100%;">
-          <h4 style="margin: 0 0 0.5rem 0;"><%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:</h4>
-          <ul style="margin: 0; padding-left: 1.5rem;">
-            <% todo.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    <% end %>
-
-    <div class="field">
-      <%= form.label :title %>
-      <%= form.text_field :title, required: true, class: "input-field", placeholder: "What needs to be done?" %>
-    </div>
-
-    <%= render 'shared/rich_editor',
-        form: form,
-        field: :description,
-        label: "Description",
-        placeholder: "Add details (optional)",
-        readonly: false %>
-
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-      <div class="field" style="flex: 1; min-width: 200px;">
-        <%= form.label :due_date %>
-        <%= form.datetime_field :due_date, class: "input-field", onclick: "this.showPicker()" %>
-      </div>
-
-      <div class="field priority-field" style="flex: 1; min-width: 200px;">
-        <%= form.label :priority %>
-        <div class="priority-button-group">
-          <% Todo.priorities.keys.each do |priority| %>
-            <%= form.radio_button :priority, priority,
-                id: "todo_priority_#{priority}",
-                class: "priority-radio-input" %>
-            <%= form.label "priority_#{priority}",
-                priority.humanize,
-                class: "priority-button priority-#{priority}" %>
+  <% if todo.errors.any? %>
+    <div class="toast alert" style="position: static; margin-bottom: 2rem; transform: none; animation: none;">
+      <div class="toast-content" style="width: 100%;">
+        <h4 style="margin: 0 0 0.5rem 0;"><%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:</h4>
+        <ul style="margin: 0; padding-left: 1.5rem;">
+          <% todo.errors.each do |error| %>
+            <li><%= error.full_message %></li>
           <% end %>
-        </div>
+        </ul>
       </div>
-    </div>
-
-    <div class="field status-field" style="margin-bottom: 1.5rem;">
-      <%= form.label :status %>
-      <div class="status-button-group" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <% Todo.statuses.keys.each do |status_name| %>
-          <%= form.radio_button :status, status_name,
-              id: "todo_status_#{status_name}",
-              class: "status-radio-input",
-              style: "display: none;" %>
-          <%= form.label "status_#{status_name}",
-              class: "status-button status-#{status_name}",
-              style: "padding: 0.75rem 1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-flex; align-items: center; gap: 0.5rem;" do %>
-            <% if status_name == 'ready' %>
-              <i class="bi bi-inbox"></i> Ready
-            <% elsif status_name == 'doing' %>
-              <i class="bi bi-play-circle"></i> Doing
-            <% elsif status_name == 'done' %>
-              <i class="bi bi-check-circle"></i> Done
-            <% else %>
-              <i class="bi bi-archive"></i> Archived
-            <% end %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="field checkbox" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem;">
-      <%= form.check_box :completed, class: "checkbox-input", style: "width: 20px; height: 20px;" %>
-      <%= form.label :completed, style: "margin: 0;" %>
-    </div>
-
-    <div class="confirm-modal-actions">
-      <% if todo.new_record? %>
-        <button type="button" class="button secondary" data-action="click->modal#close">Cancel</button>
-      <% else %>
-        <button type="button" class="button secondary" data-action="click->modal#close">Cancel</button>
-      <% end %>
-      <%= form.submit (todo.new_record? ? "Add" : "Save"), class: "button success" %>
     </div>
   <% end %>
 
-  <%# Mobile view %>
-  <% if mobile? %>
-    <% if todo.errors.any? %>
-      <div class="toast alert" style="position: static; margin-bottom: 1.5rem; transform: none; animation: none;">
-        <div class="toast-content" style="width: 100%;">
-          <ul style="margin: 0; padding-left: 1.5rem;">
-            <% todo.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    <% end %>
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, required: true, class: "input-field", placeholder: "What needs to be done?", style: "font-size: 1rem; padding: 0.75rem;" %>
+  </div>
 
-    <div class="field" style="margin-bottom: 1rem;">
-      <%= form.label :title, style: "font-size: 0.9rem;" %>
-      <%= form.text_field :title, required: true, class: "input-field", placeholder: "What needs to be done?", style: "font-size: 1rem; padding: 0.75rem;" %>
+  <%= render 'shared/rich_editor',
+      form: form,
+      field: :description,
+      label: "Description",
+      placeholder: "Add details (optional)",
+      readonly: false %>
+
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <div class="field" style="flex: 1; min-width: 200px;">
+      <%= form.label :due_date %>
+      <%= form.datetime_field :due_date, class: "input-field", onclick: "this.showPicker()", style: "font-size: 1rem; padding: 0.75rem;" %>
     </div>
 
-    <%= render 'shared/rich_editor',
-        form: form,
-        field: :description,
-        label: "Description",
-        placeholder: "Details...",
-        readonly: false %>
-
-    <div class="field" style="margin-bottom: 1rem;">
-      <%= form.label :due_date, style: "font-size: 0.9rem;" %>
-      <%= form.datetime_field :due_date,
-          class: "input-field",
-          onclick: "this.showPicker()",
-          style: "font-size: 1rem; padding: 0.75rem;" %>
-    </div>
-
-    <div class="field priority-field" style="margin-bottom: 1.5rem;">
-      <%= form.label :priority, style: "font-size: 0.9rem;" %>
-      <div class="priority-button-group"
-           style="display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem;">
+    <div class="field priority-field" style="flex: 1; min-width: 200px;">
+      <%= form.label :priority %>
+      <div class="priority-button-group">
         <% Todo.priorities.keys.each do |priority| %>
-          <%= form.radio_button :priority, priority, id: "m_todo_priority_#{priority}", class: "priority-radio-input" %>
-          <%= form.label "priority_#{priority}", priority.humanize, class: "priority-button priority-#{priority}", for: "m_todo_priority_#{priority}", style: "flex: 1; text-align: center; padding: 0.5rem;" %>
+          <%= form.radio_button :priority, priority,
+              id: "todo_priority_#{priority}",
+              class: "priority-radio-input" %>
+          <%= form.label "priority_#{priority}",
+              priority.humanize,
+              class: "priority-button priority-#{priority}",
+              style: "padding: 0.5rem 1rem;" %>
         <% end %>
       </div>
     </div>
+  </div>
 
-    <div class="field status-field" style="margin-bottom: 1.5rem;">
-      <%= form.label :status, style: "font-size: 0.9rem;" %>
-      <div class="status-button-group"
-           style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-        <% Todo.statuses.keys.each do |status_name| %>
-          <%= form.radio_button :status, status_name, id: "m_todo_status_#{status_name}", class: "status-radio-input", style: "display: none;" %>
-          <%= form.label "status_#{status_name}", class: "status-button status-#{status_name}", for: "m_todo_status_#{status_name}", style: "padding: 0.75rem; border-radius: 8px; cursor: pointer; text-align: center; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);" do %>
-            <% if status_name == 'ready' %> <i class="bi bi-inbox"></i> Ready
-            <% elsif status_name == 'doing' %> <i class="bi bi-play-circle"></i> Doing
-            <% elsif status_name == 'done' %> <i class="bi bi-check-circle"></i> Done
-            <% else %> <i class="bi bi-archive"></i> Archived
-            <% end %>
+  <div class="field status-field" style="margin-bottom: 1.5rem;">
+    <%= form.label :status %>
+    <div class="status-button-group" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <% Todo.statuses.keys.each do |status_name| %>
+        <%= form.radio_button :status, status_name,
+            id: "todo_status_#{status_name}",
+            class: "status-radio-input",
+            style: "display: none;" %>
+        <%= form.label "status_#{status_name}",
+            class: "status-button status-#{status_name}",
+            style: "padding: 0.75rem 1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-flex; align-items: center; gap: 0.5rem; flex: 1; min-width: 100px; justify-content: center;" do %>
+          <% if status_name == 'ready' %>
+            <i class="bi bi-inbox"></i> Ready
+          <% elsif status_name == 'doing' %>
+            <i class="bi bi-play-circle"></i> Doing
+          <% elsif status_name == 'done' %>
+            <i class="bi bi-check-circle"></i> Done
+          <% else %>
+            <i class="bi bi-archive"></i> Archived
           <% end %>
         <% end %>
-      </div>
+      <% end %>
     </div>
+  </div>
 
-    <div class="confirm-modal-actions" style="flex-direction: column-reverse; gap: 0.75rem;">
-      <button type="button" class="button secondary" data-action="click->modal#close" style="width: 100%; padding: 0.75rem;">Cancel</button>
-      <%= form.submit (todo.new_record? ? "Add" : "Save"), class: "button success", style: "width: 100%; padding: 0.75rem;" %>
-    </div>
-  <% end %>
+  <div class="field checkbox" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem;">
+    <%= form.check_box :completed, class: "checkbox-input", style: "width: 20px; height: 20px;" %>
+    <%= form.label :completed, style: "margin: 0;" %>
+  </div>
 
-  <%# Mobile view %>
+  <div class="confirm-modal-actions">
+    <% if todo.new_record? %>
+      <button type="button" class="button secondary" data-action="click->modal#close" style="padding: 0.75rem 1.5rem;">Cancel</button>
+    <% else %>
+      <button type="button" class="button secondary" data-action="click->modal#close" style="padding: 0.75rem 1.5rem;">Cancel</button>
+      <%# Delete button %>
+      <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?", turbo_frame: "_top" }, class: "button danger", style: "padding: 0.75rem 1.5rem;" do %>
+        <i class="bi bi-trash"></i> Delete
+      <% end %>
+    <% end %>
+    <%= form.submit (todo.new_record? ? "Add" : "Save"), class: "button success", style: "padding: 0.75rem 1.5rem;" %>
+  </div>
 
 <% end %>

@@ -21,7 +21,7 @@ class TodosController < ApplicationController
 
   # 할 일 추가 화면
   def new
-    @todo = current_user.todos.new
+    @todo = current_user.todos.new(status: params[:status])
   end
 
   # 할 일 추가 처리
